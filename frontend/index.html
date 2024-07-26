@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+            async function change(e) {
+                let image = document.getElementById("file").files[0];
+                const formData = new FormData();
+                formData.append("image", image);
+                try {
+                    const response = await fetch(`http://localhost:4000/upload`, {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    console.log(response.status);
+                    console.log(response.statusText);
+
+                    if (!response.ok) {
+                        throw new Error(`Error searching tag: ${response.status}`);
+                    }
+
+                } catch (error) {
+                    console.log('There was an error', error);
+                }
+            }
+		</script>
+	</head>
+	<body>
+		<input id="file" type="file" onchange="change()">
+	</body>
+</html>
